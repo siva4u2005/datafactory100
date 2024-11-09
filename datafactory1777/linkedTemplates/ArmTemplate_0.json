@@ -420,6 +420,36 @@
 				"[concat(variables('factoryId'), '/datasets/generaldatalakeacct7777_data_ActiviytLog_csv')]",
 				"[concat(variables('factoryId'), '/datasets/synapseworkspace777_dedicatedsqlpool_PoolActivityLog')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ScheduleTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "01-Pipeline-CSV-Pool",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Minute",
+						"interval": 5,
+						"startTime": "2024-11-09T04:54:00",
+						"timeZone": "India Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/01-Pipeline-CSV-Pool')]"
+			]
 		}
 	]
 }
